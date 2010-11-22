@@ -3,7 +3,7 @@ unit about;
 interface
 
 uses Windows, SysUtils, Classes, Graphics, Forms, Controls, StdCtrls,
-  Buttons, ExtCtrls, jpeg;
+  Buttons, ExtCtrls;
 
 type
   TAboutBox = class(TForm)

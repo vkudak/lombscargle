@@ -139,7 +139,7 @@ procedure TForm1.Button1Click(Sender: TObject);
 var i,j,k:integer;
     f1,f2,step,xP,stepp,pp1,pp2:double;
     fo:textfile;
-    devp,mean,crit:Extended;//double;
+    devp,mean,crit:double;
       c: TCompareProc;
       s: TSwapProc;
 begin
@@ -230,8 +230,6 @@ setlength(f,k+10);
 ///////////////
 
 lombScargle(@x,@t,n,f1,f2,step,pBar,np,P_lomb,f);  //////////////LOMB-SCARGLE
-setlength(P_lomb,np);
-setlength(f,np);
 np:=np-1;
 mai:=1; mii:=1;
 for i:=0 to np do
@@ -239,8 +237,7 @@ for i:=0 to np do
    if p_lomb[i]>p_lomb[mai] then mai:=i;
    if p_lomb[i]<p_lomb[mii] then mii:=i;
   end;
-//mdev(p_lomb,np,mean,devp);
-MeanAndStdDev(p_lomb,mean,devp);
+mdev(p_lomb,np,mean,devp);
 crit:=0;
 if noll.Checked then crit:=0;
 if sig.Checked then crit:=devp;
@@ -249,26 +246,20 @@ if sign2.Checked then crit:=devp/2;
 xf:=500/(1/f2-1/f1);
 xP:=300/(p_lomb[mai]-p_lomb[mii]);
 k:=1;
-for i:=1 to np-1 do
+for i:=0 to np-1 do
  begin
   if (p_lomb[i-1]<p_lomb[i]) and (p_lomb[i]>p_lomb[i+1])
-                             and (p_lomb[i]>crit) then
+      and(p_lomb[i]>crit) then
    begin
-     StringGrid1.Cells[0,k]:=floattostrf(P_lomb[i],ffgeneral,8,6);
-       if not rezSec.Checked then
-            StringGrid1.Cells[1,k]:=floattostrF(1/f[i],ffgeneral,10,8)
-       else StringGrid1.Cells[1,k]:=floattostrF((1/f[i])*24*3600,ffgeneral,10,8);
+       StringGrid1.Cells[0,k]:=floattostrf(P_lomb[i],ffgeneral,8,6);
+       if not rezSec.Checked then   ////////////////////////
+        StringGrid1.Cells[1,k]:=floattostrF(1/f[i],ffgeneral,10,8)
+        else StringGrid1.Cells[1,k]:=floattostrF((1/f[i])*24*3600,ffgeneral,10,8);
      k:=k+1;
    end;
  end;
 
-if k>1 then
-StringGrid1.RowCount:=k else
- begin
-  stringGrid1.RowCount:=2;
-  stringGrid1.Cells[1,1]:='';
-  stringGrid1.Cells[0,1]:='';
- end;
+StringGrid1.RowCount:=k;
 
      s := WholeRowSwapProc;
      c := DescSortCompareProc;
@@ -283,7 +274,7 @@ StringGrid1.sort(0,c,s);      // SORT!!!
 
 StringGrid1.Cells[0,0]:='Power';
 StringGrid1.Cells[1,0]:='P';
-
+button4.Enabled:=true;
 with form2.image1 do
  begin
  canvas.Pen.Color:=clblack;
@@ -326,7 +317,6 @@ with form2.image1 do
   end;
 end;
 button3.Enabled:=true;
-button4.Enabled:=true;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
