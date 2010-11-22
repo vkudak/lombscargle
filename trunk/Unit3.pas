@@ -48,7 +48,7 @@ var i:integer;
      h,m,s,ms:word;
      dtime:TdateTime;
 begin
-setlength(xt,form1.n);
+setlength(xt,form1.n+1);
 for i:=0 to form1.n-1 do
  begin
   if form1.UTrb.Checked then
@@ -61,7 +61,6 @@ for i:=0 to form1.n-1 do
   xt[i]:=dtime;
  end;
 if form1.n-1<=2000 then Image1.width:=form1.n-1 else Image1.width:=2000;
-if form1.n-1<Form3.ClientWidth then Image1.Width:=form3.ClientWidth-10;
 ///////////////////////////////////
  xycanvasgraph(image1.Canvas,Image1.Width,Image1.Height,
                                              clWhite,clWhite,8/8,true);
