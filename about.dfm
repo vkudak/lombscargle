@@ -13,6 +13,7 @@ object AboutBox: TAboutBox
   Font.Style = []
   OldCreateOrder = True
   Position = poScreenCenter
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
@@ -836,11 +837,11 @@ object AboutBox: TAboutBox
       IsControl = True
     end
     object Comments: TLabel
-      Left = 77
+      Left = 69
       Top = 182
-      Width = 92
+      Width = 101
       Height = 13
-      Caption = 'Autor: Kudak Victor'
+      Caption = 'Author : Kudak Victor'
       WordWrap = True
       IsControl = True
     end
@@ -850,7 +851,7 @@ object AboutBox: TAboutBox
       Width = 226
       Height = 26
       Caption = 
-        'Organization : Laboratory of sapce researches,                  ' +
+        'Organization : Laboratory of space researches,                  ' +
         '        Uzhgorod National University'
       WordWrap = True
     end

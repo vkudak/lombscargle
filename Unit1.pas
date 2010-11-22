@@ -133,6 +133,8 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 begin
 openDialog1.InitialDir:=ExtractFilePAth(Application.ExeName);
+StringGrid1.Cells[0,0]:='Power';
+StringGrid1.Cells[1,0]:='P';
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
