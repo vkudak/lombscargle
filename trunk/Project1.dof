@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=4
 MinorVer=0
 Release=0
-Build=1
+Build=2
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=”ÊÕ”
 FileDescription=Lomb-Scargle Period Search
-FileVersion=4.0.0.1
+FileVersion=4.0.0.2
 InternalName=LSP
 LegalCopyright=
 LegalTrademarks=
