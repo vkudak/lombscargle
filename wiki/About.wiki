@@ -1,0 +1,22 @@
+#summary One-sentence summary of this page.
+#labels Phase-Implementation,Phase-Support
+
+= Introduction =
+
+LSP - Lomb-Scargle period determination program
+
+You can form file like this
+
+Obj=Objectname date=20101121 time=210101 dt=0.05
+1  2
+2  5
+3  7
+
+where time is in hour minutes and seconds, dt is time integration in seconds
+
+= Details =
+
+Add your content here.  Format your content with:
+  * *Pstart* is period from what program should serch
+  * *Pend* is period when program stop searching
+  * *Step* define _resolusion_ of iterations
