@@ -9,19 +9,20 @@ uses
 type
   TForm3 = class(TForm)
     ScrollBox1: TScrollBox;
-    Image1: TImage;
     StatusBar1: TStatusBar;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
-    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton; Shift:
+    procedure Image2MouseDown(Sender: TObject; Button: TMouseButton; Shift:
         TShiftState; X, Y: Integer);
-    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
-    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift:
+    procedure Image2MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure Image2MouseUp(Sender: TObject; Button: TMouseButton; Shift:
         TShiftState; X, Y: Integer);
   private
     { Private declarations }
   public
     { Public declarations }
+    Image1: TImage;
   end;
 
 var
@@ -33,6 +34,11 @@ uses xygraph, xycopy, xygraph3d,Unit1;
 
 {$R *.dfm}
 
+procedure TForm3.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+image1.Free;
+end;
+
 procedure TForm3.FormKeyDown(Sender: TObject; var Key: Word; Shift:
     TShiftState);
 begin
@@ -41,7 +47,7 @@ if key=vk_escape then close;
 end;
 
 procedure TForm3.FormShow(Sender: TObject);
-var i:integer;
+var i,d:integer;
      UT:double;
      xt:array of double;
      tm:boolean;
@@ -60,13 +66,29 @@ for i:=0 to form1.n-1 do
   TryEncodeTime(h,m,s,ms,dtime);
   xt[i]:=dtime;
  end;
-if form1.n-1<=2000 then Image1.width:=form1.n-1 else Image1.width:=2000;
-if form1.n-1<Form3.ClientWidth then Image1.Width:=form3.ClientWidth-10;
+///////////////////// Create Image1
+image1:=TImage.Create(Form3);
+image1.Parent := Form3.ScrollBox1;
+image1.Height:=Form3.Clientheight-40{-statusBar1.Height};
+if form3.ClientWidth<2000 then image1.Width:=2000
+  else image1.width:=form3.clientwidth;
+image1.Visible:=true;
+image1.Canvas.Create;
+image1.OnMouseDown:=form3.Image2mouseDown;
+image1.OnMouseMove:=form3.Image2mousemove;
+image1.OnMouseUp:=form3.Image2mouseup;
+Image1.Cursor:=crCross;
+image1.Repaint;
+/////////////////////////////
 ///////////////////////////////////
  xycanvasgraph(image1.Canvas,Image1.Width,Image1.Height,
                                              clWhite,clWhite,8/8,true);
     xystartgraph(3,100,3,100,35,35,20,35,clipon);
-    xyTimeAxis(clblack,xt[0],xt[form1.n-1],'Time',-2,0,0,0,0,gridoff,tm);
+    if xt[0]<xt[length(xt)-1] then
+    xyTimeAxis(clblack,xt[0],xt[length(xt)-1],'Time',-1,0,0,0,0,gridoff,tm)
+     else
+     xyTimeAxis(clblack,xt[0],1+xt[length(xt)-1],'Time',-1,0,0,0,0,gridoff,tm);
+
 
  if form1.mChb.Checked then
  xyyaxis(clblack,maxValue(form1.x),
@@ -75,10 +97,12 @@ if form1.n-1<Form3.ClientWidth then Image1.Width:=form3.ClientWidth-10;
  xyyaxis(clblack,minValue(form1.x),
                  maxvalue(form1.x),0,0,'Imp',1,gridoff,lin,fixed);
  image1.Canvas.Pen.Color:=clRed;
+ d:=0;  /// Perexid cherez 24:00:00 + 1 den'
  for i:=1 to length(xt)-1 do
     begin
-    xymove(xt[i-1],form1.x[i-1]);
-    xydraw(xt[i],  form1.x[i]);
+    xymove(d+xt[i-1],form1.x[i-1]);
+     if xt[i]<xt[i-1] then d:=1;
+    xydraw(d+xt[i],  form1.x[i]);
     end;
  image1.Canvas.Pen.Color:=clBlack;
 
@@ -86,7 +110,7 @@ xyfinish;
 /////////////////////////////////
 end;
 
-procedure TForm3.Image1MouseDown(Sender: TObject; Button: TMouseButton; Shift:
+procedure TForm3.Image2MouseDown(Sender: TObject; Button: TMouseButton; Shift:
     TShiftState; X, Y: Integer);
 begin
   xyexportd.xp := -1;
@@ -99,7 +123,7 @@ begin
      end;
 end;
 
-procedure TForm3.Image1MouseMove(Sender: TObject; Shift: TShiftState; X, Y:
+procedure TForm3.Image2MouseMove(Sender: TObject; Shift: TShiftState; X, Y:
     Integer);
 begin
  xymousemove(shift,x,y);
@@ -111,7 +135,7 @@ begin
     end;
 end;
 
-procedure TForm3.Image1MouseUp(Sender: TObject; Button: TMouseButton; Shift:
+procedure TForm3.Image2MouseUp(Sender: TObject; Button: TMouseButton; Shift:
     TShiftState; X, Y: Integer);
 begin
   xyexportd.xp := -1;

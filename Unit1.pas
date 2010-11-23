@@ -44,6 +44,7 @@ type
     Aboute1: TMenuItem;
     ConverttoJD1: TMenuItem;
     Sumingfile1: TMenuItem;
+    Openfile1: TMenuItem;
     procedure Aboute1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -54,6 +55,7 @@ type
     procedure Exit1Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure Openfile1Click(Sender: TObject);
     procedure Sumingfile1Click(Sender: TObject);
   private
     { Private declarations }
@@ -403,6 +405,11 @@ procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
 if key=vk_escape then close;
+end;
+
+procedure TForm1.Openfile1Click(Sender: TObject);
+begin
+button2.OnClick(self);
 end;
 
 procedure TForm1.Sumingfile1Click(Sender: TObject);
