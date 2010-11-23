@@ -300,6 +300,10 @@ object Form1: TForm1
     Top = 65528
     object File1: TMenuItem
       Caption = 'File'
+      object Openfile1: TMenuItem
+        Caption = 'Open file'
+        OnClick = Openfile1Click
+      end
       object Exit1: TMenuItem
         Caption = 'Exit'
         OnClick = Exit1Click

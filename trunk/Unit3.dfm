@@ -12,6 +12,7 @@ object Form3: TForm3
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
@@ -24,16 +25,6 @@ object Form3: TForm3
     HorzScrollBar.Tracking = True
     Align = alClient
     TabOrder = 0
-    object Image1: TImage
-      Left = 0
-      Top = -6
-      Width = 601
-      Height = 379
-      Cursor = crCross
-      OnMouseDown = Image1MouseDown
-      OnMouseMove = Image1MouseMove
-      OnMouseUp = Image1MouseUp
-    end
   end
   object StatusBar1: TStatusBar
     Left = 0
