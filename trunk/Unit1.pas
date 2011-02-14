@@ -352,11 +352,11 @@ if OpenDialog1.Execute then
 
     try
      if pos('dt=',s)>0 then edit4.text:=(copy(s,pos('dt=',s)+3,10))
-       else edit4.Text:='1';
-     if pos('dT=',s)>0 then edit4.text:=(copy(s,pos('dT=',s)+3,10))
+       else
+       if pos('dT=',s)>0 then edit4.text:=(copy(s,pos('dT=',s)+3,10))
        else edit4.Text:='1';
      Except on E:exception do
-     application.MessageBox('Wrong dT in File, Set dT manualy','Attention!',0);
+     application.MessageBox('Wrong "dT" value in File. Set dT manualy','Attention!',0);
      end;//try
 
     if (pos('Time=',s)>0)or(pos('time=',s)>0) then
