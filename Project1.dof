@@ -115,7 +115,7 @@ AutoIncBuild=1
 MajorVer=4
 MinorVer=0
 Release=1
-Build=4
+Build=5
 Debug=0
 PreRelease=0
 Special=0
@@ -126,7 +126,7 @@ CodePage=1251
 [Version Info Keys]
 CompanyName=”ÊÕ”
 FileDescription=Lomb-Scargle Period Search
-FileVersion=4.0.1.4
+FileVersion=4.0.1.5
 InternalName=LSP
 LegalCopyright=
 LegalTrademarks=
@@ -134,6 +134,8 @@ OriginalFilename=
 ProductName=LSP
 ProductVersion=1.0.0.0
 Comments=
+[Excluded Packages]
+C:\Program Files\Borland\Delphi7\Lib\HelpCtxD7.bpl=HelpScribble HelpContext Property Editor for Delphi 7
 [HistoryLists\hlUnitAliases]
 Count=1
 Item0=WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;DbiErrs=BDE;
